@@ -1,0 +1,167 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+interface Testimonial {
+  name: string;
+  role: string;
+  quote: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Jimin",
+    role: "Image-shared survivor",
+    quote:
+      "This organization not only gave me hope but also a roadmap to justice, providing tools, guidance, and dedicated support for everyone affected by abuse.",
+  },
+  {
+    name: "Martins",
+    role: "Sexual abuse survivor",
+    quote:
+      "The legal expertise and compassionate support I received gave me the strength and reassurance to seek justice.",
+  },
+  {
+    name: "Amara",
+    role: "Harassment survivor",
+    quote: "I felt heard, supported, and empowered to take back control over my life.",
+  },
+  {
+    name: "Tolu",
+    role: "Advocate",
+    quote: "Empowering survivors with resources and community support.",
+  },
+  {
+    name: "Nia",
+    role: "Counselor",
+    quote: "Providing safe spaces and healing through compassionate listening.",
+  },
+  {
+    name: "Eli",
+    role: "Supporter",
+    quote: "Standing with survivors for a brighter future.",
+  },
+  {
+    name: "Rita",
+    role: "Volunteer",
+    quote: "Helping survivors find their voice and strength.",
+  },
+];
+
+export default function Testimonials() {
+  const [startIndex, setStartIndex] = useState(0);
+
+  const visibleCount = 5;
+  const cardWidth = 300;
+  const gap = 16; 
+ 
+    const partialWidth = cardWidth * 0.3;
+    const shiftX = partialWidth + gap;
+    const containerWidth = 1300;
+
+ const next = () => {
+    setStartIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prev = () => {
+    setStartIndex((prev) =>
+      prev - 1 < 0 ? testimonials.length - 1 : prev - 1
+    );
+  };
+
+  const windowedTestimonials = Array(visibleCount)
+    .fill(0)
+    .map((_, i) => testimonials[(startIndex + i) % testimonials.length]);
+
+  return (
+    <section className="bg-white py-16 flex justify-center">
+      <div
+        className="relative overflow-visible select-none"
+        style={{ width: containerWidth }}
+      >
+        <div className="mx-auto mb-4 w-[188px] h-[30px]">
+  <svg
+    width="188"
+    height="30"
+    viewBox="0 0 188 30"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M23.3333 15C23.3333 16.4728 24.5272 17.6667 26 17.6667C27.4728 17.6667 28.6667 16.4728 28.6667 15C28.6667 13.5272 27.4728 12.3333 26 12.3333C24.5272 12.3333 23.3333 13.5272 23.3333 15ZM0 15L4.37114e-08 15.5L26 15.5L26 15L26 14.5L-4.37114e-08 14.5L0 15Z"
+      fill="#03295B"
+    />
+    <rect
+      x="42.5"
+      y="0.5"
+      width="103"
+      height="29"
+      rx="14.5"
+      stroke="#03295B"
+    />
+    <path
+      d="M62.4795 20H61.249V11.2432H58.1387V10.1357H65.5898V11.2432H62.4795V20ZM67.709 13.7998C66.5947 13.7998 65.8154 14.6543 65.7402 15.8369H69.6025C69.5752 14.6475 68.8301 13.7998 67.709 13.7998ZM69.5752 17.9629H70.7441C70.5391 19.207 69.3359 20.123 67.7842 20.123C65.7471 20.123 64.5098 18.708 64.5098 16.4727C64.5098 14.2646 65.7676 12.7676 67.7295 12.7676C69.6504 12.7676 70.833 14.1621 70.833 16.3154V16.7666H65.7334V16.835C65.7334 18.1953 66.5332 19.0908 67.8115 19.0908C68.7139 19.0908 69.377 18.6328 69.5752 17.9629ZM71.9131 14.8525C71.9131 13.6357 73 12.7676 74.5654 12.7676C76.0352 12.7676 77.1152 13.6426 77.1699 14.8457H76.0352C75.9531 14.1621 75.3994 13.7383 74.5244 13.7383C73.6562 13.7383 73.082 14.1689 73.082 14.791C73.082 15.2832 73.458 15.6113 74.2646 15.8164L75.3652 16.083C76.8008 16.4453 77.3203 16.9648 77.3203 18.0107C77.3203 19.248 76.1514 20.123 74.4902 20.123C72.9316 20.123 71.8447 19.2754 71.7217 18.0176H72.9111C73.041 18.7559 73.6016 19.1523 74.5654 19.1523C75.5293 19.1523 76.124 18.7422 76.124 18.0996C76.124 17.5938 75.8301 17.3203 75.0303 17.1084L73.7793 16.7871C72.5283 16.4658 71.9131 15.8232 71.9131 14.8525ZM78.9404 11.1748H80.1299V12.8906H81.5107V13.8682H80.1299V18.0928C80.1299 18.7422 80.4033 19.0361 81.0117 19.0361C81.1484 19.0361 81.4219 19.0156 81.5039 19.002V20C81.3604 20.0342 81.0322 20.0547 80.752 20.0547C79.4463 20.0547 78.9404 19.5215 78.9404 18.1543V13.8682H77.8809V12.8906H78.9404V11.1748ZM82.8438 20V12.8906H84.0332V20H82.8438ZM83.4385 11.6943C83.0352 11.6943 82.7002 11.3594 82.7002 10.9561C82.7002 10.5459 83.0352 10.2178 83.4385 10.2178C83.8486 10.2178 84.1836 10.5459 84.1836 10.9561C84.1836 11.3594 83.8486 11.6943 83.4385 11.6943ZM85.6396 20V12.8906H86.7607V14.0254H86.7881C87.123 13.2734 87.8477 12.7676 88.8047 12.7676C89.7754 12.7676 90.4932 13.2598 90.8008 14.1211H90.8281C91.2246 13.2734 92.0586 12.7676 93.0566 12.7676C94.4648 12.7676 95.374 13.6836 95.374 15.0918V20H94.1846V15.3652C94.1846 14.3945 93.6445 13.8203 92.708 13.8203C91.7646 13.8203 91.1016 14.5176 91.1016 15.4814V20H89.9121V15.2354C89.9121 14.3809 89.3379 13.8203 88.4561 13.8203C87.5127 13.8203 86.8291 14.5586 86.8291 15.543V20H85.6396ZM99.8379 20.123C97.8691 20.123 96.543 18.708 96.543 16.4453C96.543 14.1758 97.8691 12.7676 99.8379 12.7676C101.8 12.7676 103.126 14.1758 103.126 16.4453C103.126 18.708 101.8 20.123 99.8379 20.123ZM99.8379 19.0771C101.096 19.0771 101.916 18.1201 101.916 16.4453C101.916 14.7705 101.096 13.8135 99.8379 13.8135C98.5801 13.8135 97.7529 14.7705 97.7529 16.4453C97.7529 18.1201 98.5801 19.0771 99.8379 19.0771ZM104.329 20V12.8906H105.45V14.0254H105.478C105.874 13.2598 106.633 12.7676 107.733 12.7676C109.292 12.7676 110.194 13.7725 110.194 15.3857V20H109.005V15.5977C109.005 14.4492 108.465 13.8203 107.371 13.8203C106.25 13.8203 105.519 14.6133 105.519 15.8164V20H104.329ZM111.773 20V12.8906H112.963V20H111.773ZM112.368 11.6943C111.965 11.6943 111.63 11.3594 111.63 10.9561C111.63 10.5459 111.965 10.2178 112.368 10.2178C112.778 10.2178 113.113 10.5459 113.113 10.9561C113.113 11.3594 112.778 11.6943 112.368 11.6943ZM116.914 19.1113C118.035 19.1113 118.896 18.3252 118.896 17.2998V16.7188L116.996 16.835C116.039 16.8965 115.492 17.3203 115.492 17.9902C115.492 18.667 116.06 19.1113 116.914 19.1113ZM116.647 20.123C115.232 20.123 114.282 19.2686 114.282 17.9902C114.282 16.7734 115.219 16.0078 116.859 15.9121L118.896 15.7959V15.2012C118.896 14.333 118.322 13.8135 117.338 13.8135C116.422 13.8135 115.848 14.2441 115.697 14.9414H114.549C114.631 13.7109 115.684 12.7676 117.365 12.7676C119.033 12.7676 120.086 13.6699 120.086 15.085V20H118.958V18.7764H118.931C118.507 19.5898 117.604 20.123 116.647 20.123ZM121.658 20V10.1357H122.848V20H121.658ZM124.331 14.8525C124.331 13.6357 125.418 12.7676 126.983 12.7676C128.453 12.7676 129.533 13.6426 129.588 14.8457H128.453C128.371 14.1621 127.817 13.7383 126.942 13.7383C126.074 13.7383 125.5 14.1689 125.5 14.791C125.5 15.2832 125.876 15.6113 126.683 15.8164L127.783 16.083C129.219 16.4453 129.738 16.9648 129.738 18.0107C129.738 19.248 128.569 20.123 126.908 20.123C125.35 20.123 124.263 19.2754 124.14 18.0176H125.329C125.459 18.7559 126.02 19.1523 126.983 19.1523C127.947 19.1523 128.542 18.7422 128.542 18.0996C128.542 17.5938 128.248 17.3203 127.448 17.1084L126.197 16.7871C124.946 16.4658 124.331 15.8232 124.331 14.8525Z"
+      fill="#03295B"
+    />
+    <path
+      d="M159.333 15C159.333 16.4728 160.527 17.6667 162 17.6667C163.473 17.6667 164.667 16.4728 164.667 15C164.667 13.5272 163.473 12.3333 162 12.3333C160.527 12.3333 159.333 13.5272 159.333 15ZM162 15V15.5H188V15V14.5H162V15Z"
+      fill="#03295B"
+    />
+  </svg>
+</div>
+
+        <h2 className="max-w-2xl mx-auto text-2xl text-[#03295B] font-bold mb-4">
+          Courageous Testimonials from Survivors
+        </h2>
+        <p className="max-w-2xl mt-4 mx-auto mb-8 text-gray-600">
+          Discover the resilience and hope that shines through our survivors’
+          journeys.
+        </p>
+<div className="flex w-[1300px] gap-4 justify-center items-center mb-8">
+  {windowedTestimonials.map((t, i) => (
+    t ? (
+      <motion.div
+        key={startIndex + i}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -50 }}
+        transition={{ duration: 0.4 }}
+        className={`bg-[#F6F8FA] rounded-[12px] shadow-lg p-6 min-w-[353px] max-w-[353px] h-[354px] flex flex-col
+          border border-[#EBE9E9]
+          transform transition-all duration-300 ease-in-out
+          ${
+            i === 1 || i === 2 || i === 3
+              ? "scale-105 shadow-2xl opacity-100" 
+              : "scale-90 opacity-50" 
+          }
+        `}
+        style={{
+          overflow: "hidden",
+        }}
+      >
+        <h3 className="font-bold text-lg">{t.name}</h3>
+        <p className="text-sm text-gray-500">{t.role}</p>
+        <p className="mt-4 flex-grow">{t.quote}</p>
+      </motion.div>
+    ) : null
+  ))}
+</div>
+
+
+        <button
+          onClick={prev}
+          aria-label="Previous testimonials"
+          className="absolute top-1/2 left-0 -translate-y-1/2 bg-[#04529E] text-white w-12 h-12 rounded-full shadow-lg hover:bg-[#063d7a] transition flex items-center justify-center"
+        >
+          ‹
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next testimonials"
+          className="absolute top-1/2 right-0 -translate-y-1/2 bg-[#04529E] text-white w-12 h-12 rounded-full shadow-lg hover:bg-[#063d7a] transition flex items-center justify-center"
+        >
+          ›
+        </button>
+      </div>
+    </section>
+  );
+}
