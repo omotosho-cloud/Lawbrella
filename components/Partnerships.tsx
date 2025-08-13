@@ -1,9 +1,9 @@
 export default function Partnerships() {
   return (
-    <section className="bg-[#03295B] h-[420px] text-white py-12">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-         <div className="mx-auto mb-4 w-[188px] h-[30px]">
-  <svg
+    <section className="bg-[#03295B] text-white py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">        
+        <div className="mx-auto mb-4 w-[150px] sm:w-[188px]">
+         <svg
     width="188"
     height="30"
     viewBox="0 0 188 30"
@@ -31,13 +31,31 @@ export default function Partnerships() {
       fill="#FFFFFF"
     />
   </svg>
-</div>
-        <h2 className="text-2xl font-bold mt-6 mb-6">We work in collaboration with</h2>
-        <div className="flex flex-wrap mt-14 justify-center gap-6">
-          <img src="/ukaid3.png" alt="UK Aid" className="h-[152px] w-[136px]" />
-          <img src="/ukaid3.png" alt="UK Aid" className="h-[152px] w-[136px]" />
-          <img src="/ukaid3.png" alt="UK Aid" className="h-[152px] w-[136px]" />
-          <img src="/Mask-group.png" alt="FCDO" className="h-[130px] w-[349px]" />
+        </div>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mt-6 mb-6">
+          We work in collaboration with
+        </h2>
+        <div className="flex flex-wrap mt-10 justify-center gap-4 sm:gap-6">
+          <img
+            src="/ukaid3.png"
+            alt="UK Aid"
+            className="h-20 sm:h-28 md:h-36 w-auto max-w-[140px] object-contain"
+          />
+          <img
+            src="/ukaid3.png"
+            alt="UK Aid"
+            className="h-20 sm:h-28 md:h-36 w-auto max-w-[140px] object-contain"
+          />
+          <img
+            src="/ukaid3.png"
+            alt="UK Aid"
+            className="h-20 sm:h-28 md:h-36 w-auto max-w-[140px] object-contain"
+          />
+          <img
+            src="/Mask-group.png"
+            alt="FCDO"
+            className="h-14 sm:h-20 md:h-32 w-auto max-w-[350px] object-contain"
+          />
         </div>
       </div>
     </section>

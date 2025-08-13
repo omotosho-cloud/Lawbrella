@@ -39,7 +39,7 @@ export default function HelpAccordion() {
 
   return (
     <section className="bg-[#F6F8FA] mt-16 py-16">
-      <div className="w-[1000px]  mx-auto px-6">
+      <div className="w-full max-w-[1200px]  mx-auto px-6">
         <h2 className="text-center text-[#000913]  mx-auto text-2xl font-bold mb-8">
           What do you need help with today?
         </h2>

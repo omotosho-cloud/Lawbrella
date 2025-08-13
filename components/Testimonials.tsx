@@ -1,85 +1,72 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+
+type Direction = "next" | "prev";
 
 interface Testimonial {
   name: string;
-  role: string;
-  quote: string;
+  title: string;
+  text: string;
+  avatar: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     name: "Jimin",
-    role: "Image-shared survivor",
-    quote:
-      "This organization not only gave me hope but also a roadmap to justice, providing tools, guidance, and dedicated support for everyone affected by abuse.",
+    title: "Image-abused survivor",
+    text: `This organization not only gave me hope but also a roadmap to justice, proving that together, survivors and dedicated advocates can drive meaningful change and create a safer, more supportive world for everyone affected by abuse.`,
+    avatar: "/Ellipse-1.png",
+  },
+  {
+    name: "Jimin",
+    title: "Sexual abuse survivor",
+    text: `The legal expertise and compassionate guidance I received protected my rights and empowered me to seek justice, while personalized care and access to healing resources aided my emotional and psychological recovery.`,
+    avatar: "/Ellipse-1.png",
   },
   {
     name: "Martins",
-    role: "Sexual abuse survivor",
-    quote:
-      "The legal expertise and compassionate support I received gave me the strength and reassurance to seek justice.",
+    title: "Image-abused survivor",
+    text: `This organization not only gave me hope but also a roadmap to justice, proving that together, survivors and dedicated advocates can drive meaningful change and create a safer, more supportive world for everyone affected by abuse.`,
+    avatar: "/Ellipse.png", 
+ },
+  {
+    name: "Martins",
+    title: "Image-abused survivor",
+    text: `This organization not only gave me hope but also a roadmap to justice, proving that together, survivors and dedicated advocates can drive meaningful change and create a safer, more supportive world for everyone affected by abuse.`,
+    avatar: "/Ellipse.png", 
+ },
+  {
+    name: "Jimin",
+    title: "Image-abused survivor",
+    text: `This organization not only gave me hope but also a roadmap to justice, proving that together, survivors and dedicated advocates can drive meaningful change and create a safer, more supportive world for everyone affected by abuse.`,
+    avatar: "/Ellipse-1.png",
   },
   {
-    name: "Amara",
-    role: "Harassment survivor",
-    quote: "I felt heard, supported, and empowered to take back control over my life.",
-  },
-  {
-    name: "Tolu",
-    role: "Advocate",
-    quote: "Empowering survivors with resources and community support.",
-  },
-  {
-    name: "Nia",
-    role: "Counselor",
-    quote: "Providing safe spaces and healing through compassionate listening.",
-  },
-  {
-    name: "Eli",
-    role: "Supporter",
-    quote: "Standing with survivors for a brighter future.",
-  },
-  {
-    name: "Rita",
-    role: "Volunteer",
-    quote: "Helping survivors find their voice and strength.",
-  },
+    name: "Martins",
+    title: "Image-abused survivor",
+    text: `This organization not only gave me hope but also a roadmap to justice, proving that together, survivors and dedicated advocates can drive meaningful change and create a safer, more supportive world for everyone affected by abuse.`,
+    avatar: "/Ellipse-1.png", 
+ },
 ];
 
 export default function Testimonials() {
-  const [startIndex, setStartIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const visibleCount = 5;
-  const cardWidth = 300;
-  const gap = 16; 
- 
-    const partialWidth = cardWidth * 0.3;
-    const shiftX = partialWidth + gap;
-    const containerWidth = 1300;
-
- const next = () => {
-    setStartIndex((prev) => (prev + 1) % testimonials.length);
+  const scroll = (direction: Direction) => {
+    if (scrollRef.current) {
+      const cardWidth = scrollRef.current.querySelector<HTMLElement>("div")?.offsetWidth || 280;
+      scrollRef.current.scrollBy({
+        left: direction === "next" ? cardWidth + 24 : -(cardWidth + 24),
+        behavior: "smooth",
+      });
+    }
   };
-
-  const prev = () => {
-    setStartIndex((prev) =>
-      prev - 1 < 0 ? testimonials.length - 1 : prev - 1
-    );
-  };
-
-  const windowedTestimonials = Array(visibleCount)
-    .fill(0)
-    .map((_, i) => testimonials[(startIndex + i) % testimonials.length]);
 
   return (
-    <section className="bg-white py-16 flex justify-center">
-      <div
-        className="relative overflow-visible select-none"
-        style={{ width: containerWidth }}
-      >
-        <div className="mx-auto mb-4 w-[188px] h-[30px]">
-  <svg
+    <section className="w-full mb-10 py-12 sm:py-16 bg-white">
+      <div className="max-w-[1200px] mx-auto relative px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center mb-10 text-center">
+          <div className="mx-auto mb-4 w-[180px] sm:w-[220px] h-auto">
+            <svg
     width="188"
     height="30"
     viewBox="0 0 188 30"
@@ -108,60 +95,67 @@ export default function Testimonials() {
     />
   </svg>
 </div>
-
-        <h2 className="max-w-2xl mx-auto text-2xl text-[#03295B] font-bold mb-4">
-          Courageous Testimonials from Survivors
-        </h2>
-        <p className="max-w-2xl mt-4 mx-auto mb-8 text-gray-600">
-          Discover the resilience and hope that shines through our survivors’
-          journeys.
-        </p>
-<div className="flex w-[1300px] gap-4 justify-center items-center mb-8">
-  {windowedTestimonials.map((t, i) => (
-    t ? (
-      <motion.div
-        key={startIndex + i}
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -50 }}
-        transition={{ duration: 0.4 }}
-        className={`bg-[#F6F8FA] rounded-[12px] shadow-lg p-6 min-w-[353px] max-w-[353px] h-[354px] flex flex-col
-          border border-[#EBE9E9]
-          transform transition-all duration-300 ease-in-out
-          ${
-            i === 1 || i === 2 || i === 3
-              ? "scale-105 shadow-2xl opacity-100" 
-              : "scale-90 opacity-50" 
-          }
-        `}
-        style={{
-          overflow: "hidden",
-        }}
-      >
-        <h3 className="font-bold text-lg">{t.name}</h3>
-        <p className="text-sm text-gray-500">{t.role}</p>
-        <p className="mt-4 flex-grow">{t.quote}</p>
-      </motion.div>
-    ) : null
-  ))}
-</div>
-
-
-        <button
-          onClick={prev}
-          aria-label="Previous testimonials"
-          className="absolute top-1/2 left-0 -translate-y-1/2 bg-[#04529E] text-white w-12 h-12 rounded-full shadow-lg hover:bg-[#063d7a] transition flex items-center justify-center"
-        >
-          ‹
-        </button>
-        <button
-          onClick={next}
-          aria-label="Next testimonials"
-          className="absolute top-1/2 right-0 -translate-y-1/2 bg-[#04529E] text-white w-12 h-12 rounded-full shadow-lg hover:bg-[#063d7a] transition flex items-center justify-center"
-        >
-          ›
-        </button>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#15305B] mb-2">
+            Courageous Testimonials from Survivors
+          </h2>
+          <p className="text-[#222] text-sm sm:text-base font-medium max-w-2xl">
+            Discover the resilience and hope that shine through our survivors’ journeys, where their Safety and Privacy are paramount.
+            <br className="hidden sm:block" />
+            These stories illuminate the path from adversity to triumph
+          </p>
+        </div>
+        <div className="relative">          
+          <button
+            onClick={() => scroll("prev")}
+            className="flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-[#04529E] rounded-full w-10 h-10 sm:w-10 sm:h-10 items-center justify-center shadow"
+          >
+            <svg width="18" height="18" fill="none" stroke="#fff" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <div
+            ref={scrollRef}
+            className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide px-1 sm:px-[10%] snap-x snap-mandatory"
+          >
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 bg-[#F5F8FC] rounded-2xl shadow-sm p-4 sm:p-6 w-[80%] sm:w-[280px] flex flex-col snap-center transform hover:scale-105 transition-transform duration-300"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <div className="font-bold text-[#15305B] text-sm sm:text-base">{t.name}</div>
+                    <div className="text-xs text-[#1A3C6B] font-medium">{t.title}</div>
+                  </div>
+                </div>
+                <p className="text-[#15305B] text-xs sm:text-sm leading-relaxed font-medium">
+                  <span className="text-[#1A3C6B] text-lg sm:text-2xl font-bold mr-1">“</span>
+                  {t.text}
+                </p>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => scroll("next")}
+            className="flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-[#04529E] rounded-full sm:w-10 sm:h-10 w-10 h-10 items-center justify-center shadow"
+          >
+            <svg width="18" height="18" fill="none" stroke="#fff" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </div>
+
+      <style jsx global>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 }
